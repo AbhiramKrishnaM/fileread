@@ -7,15 +7,22 @@ import (
 
 func main() {
 
-	var filename string
+	// var filename string
 
-	for _, arg := range os.Args[1:] {
-		filename = arg
-	}
+	// for _, arg := range os.Args[1:] {
+	// 	filename = arg
+	// }
 
-	fmt.Println(filename)
 	/*
 		Check if the file exists
 	*/
+
+	cwd, err := os.Getwd()
+
+	if err != nil {
+		fmt.Println("Error")
+	}
+
+	fmt.Println(cwd)
 
 }
