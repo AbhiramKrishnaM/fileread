@@ -26,16 +26,16 @@ func main() {
 		fmt.Println("File exists")
 
 	} else {
-		var isSuccess = createFile()
+		var isSuccess = createFile(filename)
 
 		if isSuccess {
-			fmt.Println("FIle created successfulle")
+			fmt.Println("FIle created successfully")
 		}
 	}
 
 }
 
-func createFile() bool {
+func createFile(file_name string) bool {
 	/*
 		Ask user for the name of the file to be created
 			create the file
