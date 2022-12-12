@@ -166,16 +166,3 @@ func openFile(file_name string) bool {
 	}
 
 }
-
-func deleteFile(file_name string) bool {
-
-	err := os.Remove(file_name)
-
-	if err != nil {
-		log.Fatal(err)
-		return false
-	} else {
-		return true
-	}
-
-}
