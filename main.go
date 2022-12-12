@@ -16,11 +16,17 @@ func main() {
 	}
 
 	/*
-		Check if the file exists
-		if file does not exist
-			create the file with that extension
-		else
-			open the file read the contents
+
+		check flag
+
+		-c :- create a folder and file
+
+
+			Check if the file exists
+			if file does not exist
+				create the file with that extension
+			else
+				open the file read the contents
 	*/
 
 	if _, err := os.Stat(filename); err == nil {
@@ -47,6 +53,7 @@ func createFile(file_name string) bool {
 				else return true
 	*/
 	var ext string
+	var foldername string
 
 	extension := map[string]string{
 		"go":  "go",
@@ -74,14 +81,27 @@ func createFile(file_name string) bool {
 		_filename := file_name + "." + ext
 
 		for {
-			_, err := os.Create(filepath.Join(currentDirectory+"/test", filepath.Base(_filename)))
+
+			fmt.Printf("Enter folder name. This will the folder name to which the file will be saved! \n")
+			fmt.Scanf("%s", &foldername)
+
+			absolutePath := currentDirectory + "/" + foldername
+
+			_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
 
 			if err == nil {
 				break
 			} else {
-				if err := os.Mkdir("test", os.ModePerm); err != nil {
+				if err := os.Mkdir(foldername, os.ModePerm); err != nil {
 					log.Fatal(err)
+				} else {
+					_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
+
+					if err != nil {
+						break
+					}
 				}
+				break
 			}
 		}
 
