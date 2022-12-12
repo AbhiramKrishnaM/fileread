@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -23,30 +24,84 @@ func main() {
 
 	if _, err := os.Stat(filename); err == nil {
 
-		fmt.Println("File exists")
+		if openFile(filename) {
+			fmt.Println("File read completely")
+		}
 
 	} else {
-		var isSuccess = createFile(filename)
 
-		if isSuccess {
-			fmt.Println("FIle created successfully")
+		if createFile(filename) {
+			fmt.Println("File created successfully")
 		}
 	}
 
 }
 
+type Extension int
+
+const (
+	Exe Extension = iota
+	Txt
+	Jpeg
+	Png
+	Svg
+	Js
+)
+
+func (exe Extension) Name() string {
+	switch exe {
+	case Exe:
+		return "exe"
+	case Txt:
+		return "txt"
+	case Jpeg:
+		return "jpeg"
+
+	case Png:
+		return "png"
+	case Svg:
+		return "svg"
+	case Js:
+		return "js"
+
+	}
+
+	return "error"
+}
+
 func createFile(file_name string) bool {
 	/*
-		Ask user for the name of the file to be created
-			create the file
+		create the file with existing file name
+			ask user for the file extension
 				if file creation failed return false
 				else return true
 	*/
+	var ext string
 
-	return true
+	fmt.Println("Extension for your new file ? \t")
+	fmt.Scanf("%s", &ext)
+
+	/*
+		check if the extension is an enum
+	*/
+
+	_filename := file_name + "." + ext
+
+	file, err := os.Create(_filename)
+
+	if err != nil {
+		log.Fatal(err)
+		return false
+	} else {
+
+		fmt.Println(&file)
+
+		return true
+	}
+
 }
 
-func openFile() bool {
+func openFile(file_name string) bool {
 	/*
 		Open the file
 			read the contents of the file
