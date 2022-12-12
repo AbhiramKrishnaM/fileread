@@ -10,14 +10,7 @@ import (
 
 func main() {
 
-	var filename string
-
-	for _, arg := range os.Args[1:] {
-		filename = arg
-	}
-
 	/*
-
 		check flag
 		-c :- create a folder and file
 		-d :- delete folder and file
@@ -30,19 +23,41 @@ func main() {
 				open the file read the contents
 	*/
 
-	if _, err := os.Stat(filename); err == nil {
+	arguments := make(map[int]string)
 
-		if openFile(filename) {
-			fmt.Println("File read completely")
-		}
-
-	} else {
-
-		if createFile(filename) {
-			fmt.Println("File created successfully")
-		}
+	for index, arg := range os.Args[1:] {
+		arguments[index] = arg
 	}
 
+	flag := arguments[0]
+
+	selectOption(flag, arguments)
+
+	// if _, err := os.Stat(filename); err == nil {
+
+	// 	if openFile(filename) {
+	// 		fmt.Println("File read completely")
+	// 	}
+
+	// } else {
+
+	// 	if createFile(filename) {
+	// 		fmt.Println("File created successfully")
+	// 	}
+	// }
+
+}
+
+func selectOption(_flag string, _arg map[int]string) bool {
+
+	switch _flag {
+	/*
+		create folder and file
+	*/
+	case "-c":
+	}
+
+	return false
 }
 
 func createFile(file_name string) bool {
