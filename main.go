@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -125,5 +126,41 @@ func openFile(file_name string) bool {
 			read the contents of the file
 			and close the file
 	*/
-	return true
+
+	file, err := os.Open(file_name)
+
+	if err != nil {
+		log.Fatal(err)
+		return false
+	} else {
+
+		defer file.Close()
+
+		scanner := bufio.NewScanner(file)
+
+		for scanner.Scan() {
+			fmt.Println(scanner.Text())
+		}
+
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+			return false
+		}
+
+		return true
+	}
+
+}
+
+func deleteFile(file_name string) bool {
+
+	err := os.Remove(file_name)
+
+	if err != nil {
+		log.Fatal(err)
+		return false
+	} else {
+		return true
+	}
+
 }
