@@ -18,9 +18,7 @@ func main() {
 	/*
 
 		check flag
-
 		-c :- create a folder and file
-
 
 			Check if the file exists
 			if file does not exist
