@@ -37,39 +37,10 @@ func main() {
 
 }
 
-type Extension int
-
-const (
-	Exe Extension = iota
-	Txt
-	Jpeg
-	Png
-	Svg
-	Js
-)
-
-func (exe Extension) Name() string {
-	switch exe {
-	case Exe:
-		return "exe"
-	case Txt:
-		return "txt"
-	case Jpeg:
-		return "jpeg"
-
-	case Png:
-		return "png"
-	case Svg:
-		return "svg"
-	case Js:
-		return "js"
-
-	}
-
-	return "error"
-}
+var Extension map[string]string
 
 func createFile(file_name string) bool {
+
 	/*
 		create the file with existing file name
 			ask user for the file extension
@@ -80,10 +51,6 @@ func createFile(file_name string) bool {
 
 	fmt.Println("Extension for your new file ? \t")
 	fmt.Scanf("%s", &ext)
-
-	/*
-		check if the extension is an enum
-	*/
 
 	_filename := file_name + "." + ext
 
