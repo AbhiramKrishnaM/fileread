@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 	/*
 		Check if the file exists
 		if file does not exist
-			create the file ask for the extension
+			create the file with that extension
 		else
 			open the file read the contents
 	*/
@@ -37,8 +38,6 @@ func main() {
 
 }
 
-var Extension map[string]string
-
 func createFile(file_name string) bool {
 
 	/*
@@ -49,19 +48,42 @@ func createFile(file_name string) bool {
 	*/
 	var ext string
 
-	fmt.Println("Extension for your new file ? \t")
-	fmt.Scanf("%s", &ext)
+	extension := map[string]string{
+		"go":  "go",
+		"js":  "js",
+		"exe": "exe",
+	}
 
-	_filename := file_name + "." + ext
+	for {
+		fmt.Println("Extension for your new file ? \t")
+		fmt.Scanf("%s", &ext)
 
-	file, err := os.Create(_filename)
+		if _, ok := extension[ext]; ok {
+			break
+		} else {
+			fmt.Printf("File extension not recognized. Please re enter \n")
+		}
+	}
+
+	currentDirectory, err := os.Getwd()
 
 	if err != nil {
 		log.Fatal(err)
 		return false
 	} else {
+		_filename := file_name + "." + ext
 
-		fmt.Println(&file)
+		for {
+			_, err := os.Create(filepath.Join(currentDirectory+"/test", filepath.Base(_filename)))
+
+			if err == nil {
+				break
+			} else {
+				if err := os.Mkdir("test", os.ModePerm); err != nil {
+					log.Fatal(err)
+				}
+			}
+		}
 
 		return true
 	}
