@@ -19,6 +19,8 @@ func main() {
 
 		check flag
 		-c :- create a folder and file
+		-d :- delete folder and file
+		-r : rename folder and file
 
 			Check if the file exists
 			if file does not exist
@@ -54,9 +56,18 @@ func createFile(file_name string) bool {
 	var foldername string
 
 	extension := map[string]string{
-		"go":  "go",
-		"js":  "js",
-		"exe": "exe",
+		"go":   "go",
+		"js":   "js",
+		"exe":  "exe",
+		"txt":  "txt",
+		"php":  "php",
+		"jsx":  "jsx",
+		"py":   "py",
+		"yml":  "yml",
+		"json": "json",
+		"c":    "c",
+		"psd":  "psd",
+		"cpp":  "cpp",
 	}
 
 	for {
