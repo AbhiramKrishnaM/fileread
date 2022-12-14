@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 )
 
 func ReadFile() {}
@@ -32,7 +31,6 @@ func DeleteFolder(foldername string) bool {
 /*
 Create file or folder
 */
-
 func CreateFile(file_name string) bool {
 	/*
 		create the file with existing file name
@@ -41,7 +39,6 @@ func CreateFile(file_name string) bool {
 				else return true
 	*/
 	var ext string
-	var foldername string
 
 	extension := map[string]string{
 		"go":   "go",
@@ -69,44 +66,65 @@ func CreateFile(file_name string) bool {
 		}
 	}
 
+	_filename := file_name + "." + ext
+
+	// for {
+
+	// 	absolutePath := currentDirectory + "/" + foldername
+
+	// 	_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
+
+	// 	if err == nil {
+	// 		break
+	// 	} else {
+	// 		if err := os.Mkdir(foldername, os.ModePerm); err != nil {
+	// 			log.Fatal(err)
+	// 		} else {
+	// 			_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
+
+	// 			if err != nil {
+	// 				break
+	// 			}
+	// 		}
+	// 		break
+	// 	}
+	// }
+
+	return true
+
+}
+
+func CreateFolder() bool {
+
+	var foldername string
+
 	currentDirectory, err := os.Getwd()
 
 	if err != nil {
 		log.Fatal(err)
 		return false
 	} else {
-		_filename := file_name + "." + ext
 
-		for {
+		fmt.Printf("Enter folder name. This will the folder name to which the file will be saved! \n")
+		fmt.Scanf("%s", &foldername)
 
-			fmt.Printf("Enter folder name. This will the folder name to which the file will be saved! \n")
-			fmt.Scanf("%s", &foldername)
+		/*
+			check if the folder already exisits in the current directory
+				step 1:  if it does not exist
+							create the folder
+						else
+							ask for a new folder name
+								check if the folder exisits
+								if yes
+									say folder already exist
+									repeat step 1
+		*/
 
-			absolutePath := currentDirectory + "/" + foldername
-
-			_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
-
-			if err == nil {
-				break
-			} else {
-				if err := os.Mkdir(foldername, os.ModePerm); err != nil {
-					log.Fatal(err)
-				} else {
-					_, err := os.Create(filepath.Join(absolutePath, filepath.Base(_filename)))
-
-					if err != nil {
-						break
-					}
-				}
-				break
-			}
-		}
-
-		return true
 	}
 
-}
+	/*
+		Get current working directory
+	*/
 
-func CreateFolder() bool {
 	return true
 }
