@@ -137,6 +137,10 @@ func DeleteFolder(foldername string) bool {
 	return true
 }
 
+/*
+Ask user if he wants to proceed or exit the application
+*/
+
 func _answer() bool {
 	var ans string
 	truthyAnswer := map[string]string{
