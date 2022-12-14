@@ -5,13 +5,17 @@ import (
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/AbhiramKrishnaM/fileread/util"
 )
 
 func main() {
 
 	/*
 		check flag
-		-c :- create a folder and file
+		-cf :- create a file
+		-cF := create a folder
+
 		-d :- delete folder and file
 		-r : rename folder and file
 
@@ -51,9 +55,14 @@ func selectOption(_flag string, _arg map[int]string) bool {
 
 	switch _flag {
 	/*
-		create folder and file
+		create a file
 	*/
-	case "-c":
+	case "-cf":
+		fmt.Println("Gonna create a file ")
+
+	case "-cF":
+
+		util.CreateFolder(_arg[1])
 	}
 
 	return false
