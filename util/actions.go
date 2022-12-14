@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 func ReadFile() {}
@@ -68,13 +69,16 @@ func CreateFile(file_name string) bool {
 
 func CreateFolder(folder_name string) bool {
 
-	fmt.Println(folder_name)
-
 	var foldername string
+	var ans string
+
+	truthyAnswer := map[string]string{
+		"yes": "yes",
+		"y":   "y",
+		"Yes": "Yes",
+	}
 
 	currentDirectory, err := os.Getwd()
-
-	fmt.Println(currentDirectory)
 
 	if err != nil {
 		log.Fatal(err)
@@ -86,9 +90,25 @@ func CreateFolder(folder_name string) bool {
 			fmt.Scanf("%s", &foldername)
 		}
 
-		// if _,err := os.Stat(currentDirectory + '/' + foldername); err != nil{
+		_path := filepath.Join(currentDirectory, folder_name)
 
-		// }
+		if _, err := os.Stat(_path); err != nil {
+			log.Print(err)
+
+			fmt.Println("Do you wish to proceed? yes/no")
+			fmt.Scanf("%s", &ans)
+
+			if _, ok := truthyAnswer[ans]; ok {
+				fmt.Println("Hello")
+
+			} else {
+				fmt.Println("Exiting")
+				os.Exit(0)
+			}
+
+		} else {
+			fmt.Println("Hmmmmmmmmmmmmmm")
+		}
 
 		/*
 			check if the folder already exisits in the current directory
