@@ -62,7 +62,7 @@ func selectOption(_flag string, _arg map[int]string) bool {
 
 	case "-cF":
 
-		util.CreateFolder(_arg[1])
+		util.CreateFolder()
 	}
 
 	return false

@@ -67,16 +67,14 @@ func CreateFile(file_name string) bool {
 
 }
 
-func CreateFolder(folder_name string) bool {
+func CreateFolder() bool {
 
 	var foldername string
-	var ans string
 
-	truthyAnswer := map[string]string{
-		"yes": "yes",
-		"y":   "y",
-		"Yes": "Yes",
-	}
+CHECK:
+
+	fmt.Printf("Enter folder name. This folder will be saved in the current working directory! \n")
+	fmt.Scanf("%s", &foldername)
 
 	currentDirectory, err := os.Getwd()
 
@@ -84,30 +82,24 @@ func CreateFolder(folder_name string) bool {
 		log.Fatal(err)
 		return false
 	} else {
-
-		if len(folder_name) == 0 {
-			fmt.Printf("Enter folder name. This will the folder name to which the file will be saved! \n")
-			fmt.Scanf("%s", &foldername)
-		}
-
-		_path := filepath.Join(currentDirectory, folder_name)
+		_path := filepath.Join(currentDirectory, foldername)
 
 		if _, err := os.Stat(_path); err != nil {
 			log.Print(err)
 
-			fmt.Println("Do you wish to proceed? yes/no")
-			fmt.Scanf("%s", &ans)
-
-			if _, ok := truthyAnswer[ans]; ok {
-				fmt.Println("Hello")
-
-			} else {
-				fmt.Println("Exiting")
+			if isExit := _answer(); !isExit {
 				os.Exit(0)
 			}
 
 		} else {
-			fmt.Println("Hmmmmmmmmmmmmmm")
+			fmt.Print("Sorry this folder already exists.\n\n")
+
+			if isExit := _answer(); !isExit {
+				os.Exit(0)
+			} else {
+				goto CHECK
+			}
+
 		}
 
 		/*
@@ -143,4 +135,25 @@ func DeleteFile(filename string) bool {
 
 func DeleteFolder(foldername string) bool {
 	return true
+}
+
+func _answer() bool {
+	var ans string
+	truthyAnswer := map[string]string{
+		"yes": "yes",
+		"y":   "y",
+		"Yes": "Yes",
+	}
+
+	fmt.Println("Do you wish to proceed? yes/no")
+	fmt.Scanf("%s", &ans)
+
+	if _, ok := truthyAnswer[ans]; ok {
+		return true
+
+	} else {
+		fmt.Println("Exiting")
+		return false
+	}
+
 }
