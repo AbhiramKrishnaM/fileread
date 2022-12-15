@@ -76,58 +76,50 @@ CHECK:
 	fmt.Printf("Enter folder name. This folder will be saved in the current working directory! \n")
 	fmt.Scanf("%s", &foldername)
 
-	currentDirectory, err := os.Getwd()
+	_path := filepath.Join(_getCurrentDirectory(), foldername)
 
-	if err != nil {
-		log.Fatal(err)
-		return false
-	} else {
-		_path := filepath.Join(currentDirectory, foldername)
+	if _, err := os.Stat(_path); err != nil {
+		log.Print(err)
 
-		if _, err := os.Stat(_path); err != nil {
-			log.Print(err)
-
-			if isExit := _answer(); !isExit {
-				os.Exit(0)
-			} else {
-				/*
-					create the folder
-					and exit the code
-				*/
-
-				if err := os.Mkdir(foldername, os.ModePerm); err != nil {
-					log.Print(err)
-					os.Exit(1)
-				} else {
-					fmt.Println("Folder created successfully, exiting!")
-					os.Exit(0)
-				}
-			}
-
+		if isExit := _answer(); !isExit {
+			os.Exit(0)
 		} else {
-			fmt.Print("Sorry this folder already exists.\n\n")
+			/*
+				create the folder
+				and exit the code
+			*/
 
-			if isExit := _answer(); !isExit {
-				os.Exit(0)
+			if err := os.Mkdir(foldername, os.ModePerm); err != nil {
+				log.Print(err)
+				os.Exit(1)
 			} else {
-				goto CHECK
+				fmt.Println("Folder created successfully, exiting!")
+				os.Exit(0)
 			}
-
 		}
 
-		/*
-			check if the folder already exisits in the current directory
-				step 1:  if it does not exist
-							create the folder
-						else
-							ask for a new folder name
-								check if the folder exists
-								if yes
-									say folder already exist
-									repeat step 1
-		*/
+	} else {
+		fmt.Print("Sorry this folder already exists.\n\n")
+
+		if isExit := _answer(); !isExit {
+			os.Exit(0)
+		} else {
+			goto CHECK
+		}
 
 	}
+
+	/*
+		check if the folder already exisits in the current directory
+			step 1:  if it does not exist
+						create the folder
+					else
+						ask for a new folder name
+							check if the folder exists
+							if yes
+								say folder already exist
+								repeat step 1
+	*/
 
 	return true
 }
@@ -146,7 +138,20 @@ func DeleteFile(filename string) bool {
 	}
 }
 
-func DeleteFolder(foldername string) bool {
+func DeleteFolder() bool {
+	var folderName string
+
+	fmt.Println("Enter name of the folder.")
+	fmt.Scanf("%s", &folderName)
+
+	/*
+		check if the folder exisits in the current directory
+		if it exists
+		  delete the folder
+		  else
+		  say not found and then exit
+	*/
+
 	return true
 }
 
@@ -173,4 +178,20 @@ func _answer() bool {
 		return false
 	}
 
+}
+
+/*
+get current directory
+*/
+
+func _getCurrentDirectory() string {
+
+	currentDirectory, err := os.Getwd()
+
+	if err != nil {
+		log.Print("Error fetching current directory. Exiting!")
+		os.Exit(1)
+	}
+
+	return currentDirectory
 }

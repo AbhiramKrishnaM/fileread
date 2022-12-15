@@ -61,8 +61,10 @@ func selectOption(_flag string, _arg map[int]string) bool {
 		fmt.Println("Gonna create a file ")
 
 	case "-cF":
-
 		util.CreateFolder()
+
+	case "-dF":
+		util.DeleteFolder()
 	}
 
 	return false
