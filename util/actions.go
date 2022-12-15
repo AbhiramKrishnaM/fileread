@@ -67,7 +67,7 @@ func CreateFile(file_name string) bool {
 
 }
 
-func CreateFolder() bool {
+func CreateFolder() {
 
 	var foldername string
 
@@ -121,28 +121,35 @@ CHECK:
 								repeat step 1
 	*/
 
-	return true
 }
 
 /*
 Delete file
 */
-func DeleteFile(filename string) bool {
-	err := os.Remove(filename)
+func DeleteFile() {
 
-	if err != nil {
-		log.Fatal(err)
-		return false
-	} else {
-		return true
-	}
 }
 
-func DeleteFolder() bool {
+func DeleteFolder() {
 	var folderName string
 
 	fmt.Println("Enter name of the folder.")
 	fmt.Scanf("%s", &folderName)
+
+	_path := filepath.Join(_getCurrentDirectory(), folderName)
+
+	if _, err := os.Stat(_path); err != nil {
+		log.Print(err)
+		os.Exit(1)
+	} else {
+		if err := os.RemoveAll(_path); err != nil {
+			log.Print(err)
+			os.Exit(1)
+		} else {
+			fmt.Println("Folder deleted successfully, Exiting!")
+			os.Exit(0)
+		}
+	}
 
 	/*
 		check if the folder exisits in the current directory
@@ -152,7 +159,6 @@ func DeleteFolder() bool {
 		  say not found and then exit
 	*/
 
-	return true
 }
 
 /*

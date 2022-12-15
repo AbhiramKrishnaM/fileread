@@ -63,6 +63,9 @@ func selectOption(_flag string, _arg map[int]string) bool {
 	case "-cF":
 		util.CreateFolder()
 
+	case "-df":
+		util.DeleteFile()
+
 	case "-dF":
 		util.DeleteFolder()
 	}
