@@ -14,7 +14,7 @@ func OpenFile() {}
 /*
 Create file or folder
 */
-func CreateFile(file_name string) bool {
+func CreateFile() {
 	/*
 		create the file with existing file name
 			ask user for the file extension
@@ -22,6 +22,7 @@ func CreateFile(file_name string) bool {
 				else return true
 	*/
 	var ext string
+	var fileName string
 
 	extension := map[string]string{
 		"go":   "go",
@@ -38,6 +39,11 @@ func CreateFile(file_name string) bool {
 		"cpp":  "cpp",
 	}
 
+FIRST:
+
+	fmt.Println("Enter a name for your file.")
+	fmt.Scanf("%s", &fileName)
+
 	for {
 		fmt.Println("Extension for your new file ? \t")
 		fmt.Scanf("%s", &ext)
@@ -49,7 +55,24 @@ func CreateFile(file_name string) bool {
 		}
 	}
 
-	// _filename := file_name + "." + ext
+	_filename := fileName + "." + ext
+
+	_path := filepath.Join(_getCurrentDirectory(), _filename)
+
+	if _, err := os.Stat(_path); err != nil {
+		log.Print(err)
+		os.Exit(1)
+	} else {
+		log.Println("Sorry this file exists.")
+
+		if isExit := _answer(); !isExit {
+			goto FIRST
+		} else {
+			fmt.Println("Exiting!")
+			os.Exit(0)
+		}
+
+	}
 
 	/*
 		check if the file already exisits in the current directory
@@ -62,8 +85,6 @@ func CreateFile(file_name string) bool {
 						say folder already exist
 						repeat step 1
 	*/
-
-	return true
 
 }
 
@@ -99,9 +120,10 @@ CHECK:
 		}
 
 	} else {
-		fmt.Print("Sorry this folder already exists.\n\n")
+		fmt.Print("Sorry this folder exists.\n\n")
 
 		if isExit := _answer(); !isExit {
+			fmt.Println("Exiting!")
 			os.Exit(0)
 		} else {
 			goto CHECK
