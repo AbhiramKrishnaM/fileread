@@ -89,6 +89,19 @@ CHECK:
 
 			if isExit := _answer(); !isExit {
 				os.Exit(0)
+			} else {
+				/*
+					create the folder
+					and exit the code
+				*/
+
+				if err := os.Mkdir(foldername, os.ModePerm); err != nil {
+					log.Print(err)
+					os.Exit(1)
+				} else {
+					fmt.Println("Folder created successfully, exiting!")
+					os.Exit(0)
+				}
 			}
 
 		} else {
