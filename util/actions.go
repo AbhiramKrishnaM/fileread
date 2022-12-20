@@ -157,11 +157,17 @@ FILEDELETE:
 
 	_path := filepath.Join(_getCurrentDirectory(), fileName)
 
+	fmt.Println(_path)
+
 	if _, err := os.Stat(_path); err != nil {
 
-		/*
-			Delete the file and exit application
-		*/
+		if err := os.Remove(_path); err != nil {
+			log.Print(err)
+			os.Exit(1)
+		} else {
+			fmt.Println("File deleted successfully. Exiting!")
+			os.Exit(0)
+		}
 
 	} else {
 		fmt.Println("Unable to find the file.")
@@ -236,7 +242,7 @@ func _answer() bool {
 		return true
 
 	} else {
-		fmt.Println("Exiting")
+		fmt.Println("Exiting!")
 		return false
 	}
 
