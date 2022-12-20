@@ -151,6 +151,39 @@ CHECK:
 Delete file
 */
 func DeleteFile() {
+FILEDELETE:
+	fmt.Println("Please enter the name of the file you want to delete.")
+	fmt.Scanf("%s", &fileName)
+
+	_path := filepath.Join(_getCurrentDirectory(), fileName)
+
+	if _, err := os.Stat(_path); err != nil {
+
+		/*
+			Delete the file and exit application
+		*/
+
+	} else {
+		fmt.Println("Unable to find the file.")
+		if _answer() {
+			goto FILEDELETE
+		} else {
+			os.Exit(0)
+		}
+
+	}
+
+	/*
+		check if file exist
+		if exist
+			ask user if he wants to delete the file
+			if no
+				exit
+			if yes
+				delet the file and exit
+		else
+			ask for the name again
+	*/
 
 }
 
