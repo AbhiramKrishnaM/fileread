@@ -15,6 +15,26 @@ var (
 
 func ReadFile() {
 
+READFILE:
+
+	fmt.Println("Enter name of the file whose contents you want to read.")
+	fmt.Scanf("%s", &fileName)
+
+	_path := filepath.Join(_getCurrentDirectory(), fileName)
+
+	_, err := os.Stat(_path)
+
+	if os.IsNotExist(err) {
+		log.Print(err)
+
+		if _answer() {
+			goto READFILE
+
+		} else {
+			os.Exit(0)
+		}
+	}
+
 	/*
 		ask user for the file name
 		check if the file exist

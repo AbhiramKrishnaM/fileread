@@ -47,6 +47,9 @@ func selectOption(_flag string, _arg map[int]string) bool {
 
 	case "-dF":
 		util.DeleteFolder()
+
+	case "-rf":
+		util.ReadFile()
 	}
 
 	return false
