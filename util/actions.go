@@ -1,6 +1,7 @@
 package util
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -17,7 +18,7 @@ func ReadFile() {
 
 READFILE:
 
-	fmt.Println("Enter name of the file whose contents you want to read.")
+	fmt.Println("Enter the name of the file.")
 	fmt.Scanf("%s", &fileName)
 
 	_path := filepath.Join(_getCurrentDirectory(), fileName)
@@ -29,10 +30,23 @@ READFILE:
 
 		if _answer() {
 			goto READFILE
-
 		} else {
 			os.Exit(0)
 		}
+	} else {
+		/*
+			read contents of file
+		*/
+
+		fptr := flag.String("fpath", _path, "Read from file")
+
+		if file, err := os.Open(*fptr); err != nil {
+			log.Print(err)
+			os.Exit(1)
+		} else {
+			fmt.Println(*file)
+		}
+
 	}
 
 	/*
