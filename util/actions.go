@@ -157,23 +157,25 @@ FILEDELETE:
 
 	_path := filepath.Join(_getCurrentDirectory(), fileName)
 
-	fmt.Println(_path)
+	_, err := os.Stat(_path)
 
-	if _, err := os.Stat(_path); err != nil {
+	if os.IsNotExist(err) {
+
+		fmt.Println("Unable to find the file.")
+		if _answer() {
+			goto FILEDELETE
+		} else {
+			os.Exit(0)
+		}
+
+	} else {
 
 		if err := os.Remove(_path); err != nil {
 			log.Print(err)
 			os.Exit(1)
 		} else {
-			fmt.Println("File deleted successfully. Exiting!")
-			os.Exit(0)
-		}
 
-	} else {
-		fmt.Println("Unable to find the file.")
-		if _answer() {
-			goto FILEDELETE
-		} else {
+			fmt.Println("File deleted successfully. Exiting!")
 			os.Exit(0)
 		}
 
