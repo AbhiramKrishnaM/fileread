@@ -13,7 +13,24 @@ var (
 	ext        string
 )
 
-func ReadFile() {}
+func ReadFile() {
+
+	/*
+		ask user for the file name
+		check if the file exist
+		if exist
+			open the file and read the contents
+			after reaeding close the file and exit
+		else
+			tell user the file does not exist
+			ask if he wants to continue
+			if yes
+				repeat above step
+			else
+				exit
+	*/
+
+}
 
 func OpenFile() {}
 
