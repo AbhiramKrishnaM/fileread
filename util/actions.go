@@ -7,6 +7,12 @@ import (
 	"path/filepath"
 )
 
+var (
+	fileName   string
+	folderName string
+	ext        string
+)
+
 func ReadFile() {}
 
 func OpenFile() {}
@@ -21,8 +27,6 @@ func CreateFile() {
 				if file creation failed return false
 				else return true
 	*/
-	var ext string
-	var fileName string
 
 	extension := map[string]string{
 		"go":   "go",
@@ -90,14 +94,12 @@ FIRST:
 
 func CreateFolder() {
 
-	var foldername string
-
 CHECK:
 
 	fmt.Printf("Enter folder name. This folder will be saved in the current working directory! \n")
-	fmt.Scanf("%s", &foldername)
+	fmt.Scanf("%s", &folderName)
 
-	_path := filepath.Join(_getCurrentDirectory(), foldername)
+	_path := filepath.Join(_getCurrentDirectory(), folderName)
 
 	if _, err := os.Stat(_path); err != nil {
 		log.Print(err)
@@ -110,7 +112,7 @@ CHECK:
 				and exit the code
 			*/
 
-			if err := os.Mkdir(foldername, os.ModePerm); err != nil {
+			if err := os.Mkdir(folderName, os.ModePerm); err != nil {
 				log.Print(err)
 				os.Exit(1)
 			} else {
@@ -153,7 +155,6 @@ func DeleteFile() {
 }
 
 func DeleteFolder() {
-	var folderName string
 
 	fmt.Println("Enter name of the folder.")
 	fmt.Scanf("%s", &folderName)
