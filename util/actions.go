@@ -98,8 +98,6 @@ func ReadFolder() {
 	}
 }
 
-func OpenFile() {}
-
 /*
 Create file or folder
 */
