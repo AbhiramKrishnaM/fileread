@@ -1,6 +1,7 @@
 package util
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"log"
@@ -40,11 +41,29 @@ READFILE:
 
 		fptr := flag.String("fpath", _path, "Read from file")
 
-		if file, err := os.Open(*fptr); err != nil {
+		file, err := os.Open(*fptr)
+
+		if err != nil {
 			log.Print(err)
 			os.Exit(1)
-		} else {
-			fmt.Println(*file)
+		}
+
+		defer func() {
+			if err := file.Close(); err != nil {
+				log.Print(err)
+				os.Exit(1)
+			}
+
+		}()
+
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			fmt.Println(scanner.Text())
+		}
+
+		if err := scanner.Err(); err != nil {
+			log.Print(err)
+			os.Exit(1)
 		}
 
 	}
