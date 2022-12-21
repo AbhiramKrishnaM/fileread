@@ -13,6 +13,10 @@ func main() {
 		-cf :- create a file
 		-cF :- create a folder
 
+		-rf :- read a file
+		-rF :- read contents of folder
+
+
 		-d :- delete folder and file
 		-r :- rename folder and file
 
