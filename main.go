@@ -54,6 +54,9 @@ func selectOption(_flag string, _arg map[int]string) bool {
 
 	case "-rf":
 		util.ReadFile()
+
+	case "-rF":
+		util.ReadFolder()
 	}
 
 	return false

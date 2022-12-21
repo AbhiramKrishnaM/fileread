@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -83,6 +84,18 @@ READFILE:
 				exit
 	*/
 
+}
+
+func ReadFolder() {
+	if files, err := ioutil.ReadDir(_getCurrentDirectory()); err != nil {
+		log.Print(err)
+		os.Exit(1)
+	} else {
+		for _, file := range files {
+			fmt.Printf("%s \n", file.Name())
+		}
+		os.Exit(0)
+	}
 }
 
 func OpenFile() {}
