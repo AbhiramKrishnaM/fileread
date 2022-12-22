@@ -17,7 +17,9 @@ func main() {
 		-rF :- read contents of folder
 
 
-		-d :- delete folder and file
+		-df :- delete file
+		-dF :- delete Folder
+
 		-r :- rename folder and file
 
 	*/

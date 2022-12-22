@@ -136,6 +136,7 @@ FIRST:
 		if _, ok := extension[ext]; ok {
 			break
 		} else {
+
 			fmt.Printf("File extension not recognized. Please re enter \n")
 		}
 	}
@@ -192,7 +193,6 @@ CHECK:
 				create the folder
 				and exit the code
 			*/
-
 			if err := os.Mkdir(folderName, os.ModePerm); err != nil {
 				log.Print(err)
 				os.Exit(1)
