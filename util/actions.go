@@ -8,6 +8,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/otiai10/gosseract"
 )
 
 var (
@@ -28,6 +30,19 @@ func ReadImage() {
 		log.Print(err)
 		os.Exit(1)
 	}
+
+	client := gosseract.NewClient()
+	defer client.Close()
+
+	// Set the image file that you want to read text from
+	client.SetImage("image.png")
+	// Extract the text from the image
+	text, err := client.Text()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Print the extracted text
+	fmt.Println(text)
 
 }
 
