@@ -13,8 +13,23 @@ import (
 var (
 	fileName   string
 	folderName string
+	imageName  string
 	ext        string
 )
+
+func ReadImage() {
+
+	fmt.Println("Enter the name of the image file.")
+	fmt.Scanf("%s", &imageName)
+
+	_path := filepath.Join(_getCurrentDirectory(), imageName)
+
+	if _, err := os.Stat(_path); err != nil {
+		log.Print(err)
+		os.Exit(1)
+	}
+
+}
 
 func ReadFile() {
 

@@ -15,6 +15,7 @@ func main() {
 
 		-rf :- read a file
 		-rF :- read contents of folder
+		-rI :- read contents of an image
 
 
 		-df :- delete file
@@ -59,6 +60,9 @@ func selectOption(_flag string, _arg map[int]string) bool {
 
 	case "-rF":
 		util.ReadFolder()
+
+	case "-rI":
+		util.ReadImage()
 	}
 
 	return false
