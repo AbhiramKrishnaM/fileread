@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -20,7 +21,8 @@ func main() {
 	cwd, err := os.Getwd()
 
 	if err != nil {
-		fmt.Println("Error")
+		log.Fatal(err)
+		os.Exit(1)
 	}
 
 	fmt.Println(cwd)
